@@ -38,6 +38,7 @@ export default class TextAreaItem extends React.Component<
   TextareaItemNativeProps,
   any
 > {
+
   static defaultProps = {
     onChange() {},
     onFocus() {},
@@ -53,6 +54,8 @@ export default class TextAreaItem extends React.Component<
     last: false,
     styles: TextAreaItemStyles,
   };
+
+  inputRef: TextInput | null;
 
   constructor(props: TextareaItemNativeProps) {
     super(props);
@@ -105,6 +108,18 @@ export default class TextAreaItem extends React.Component<
 
     if (onContentSizeChange) {
       onContentSizeChange(event);
+    }
+  }
+
+  focus = () => {
+    if (this.inputRef) {
+      this.inputRef.focus();
+    }
+  }
+
+  blur = () => {
+    if (this.inputRef) {
+      this.inputRef.blur();
     }
   }
 
@@ -163,6 +178,7 @@ export default class TextAreaItem extends React.Component<
           {...valueProps}
           onChange={event => this.onChange(event)}
           onContentSizeChange={this.onContentSizeChange}
+          ref={el => ((this.inputRef as any) = el)}
           multiline={rows! > 1 || autoHeight}
           numberOfLines={rows}
           maxLength={maxLength}
