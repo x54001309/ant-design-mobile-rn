@@ -1,12 +1,15 @@
 /* tslint:disable:no-console */
 import React from 'react';
 import { ScrollView } from 'react-native';
-import { List, TextareaItem } from 'antd-mobile-rn';
+import { List, TextareaItem, Button, Flex } from 'antd-mobile-rn';
 
 export default class BasicTextAreaItemExample extends React.Component<
   any,
   any
 > {
+
+  inputRef: any;
+
   constructor(props: any) {
     super(props);
     this.state = {
@@ -45,6 +48,28 @@ export default class BasicTextAreaItemExample extends React.Component<
             defaultValue="报错样式 error={true}"
             onErrorClick={() => console.log('err')}
           />
+
+          <TextareaItem
+              placeholder="测试聚焦"
+              ref={(el: any) => this.inputRef = el}
+          />
+
+          <List.Item>
+            <Flex justify="center">
+            <Button
+                onClick={() => { this.inputRef.focus(); }}
+                type="primary"
+            >
+                点击获取光标
+            </Button>
+            <Button
+                onClick={() => { this.inputRef.blur(); }}
+                type="warning"
+            >
+                点击失去光标
+            </Button>
+            </Flex>
+          </List.Item>
         </List>
       </ScrollView>
     );
